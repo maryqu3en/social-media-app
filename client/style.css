@@ -1,0 +1,160 @@
+/* Reset some default styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling for the header and navigation */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 24px;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Styling for the main content area */
+main {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for individual posts */
+.post {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.post img {
+    max-width: 100%;
+    height: auto;
+}
+
+.post p.time {
+    font-size: 14px;
+    color: #777;
+}
+
+.post p {
+    margin: 10px 0;
+}
+
+/* Styling for comments and buttons within posts */
+.comments-popup {
+    display: none;
+}
+
+.comments-popup button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin: 5px;
+}
+
+.comments-popup button:hover {
+    background-color: #0056b3;
+}
+
+.comment {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment p {
+    margin: 0;
+}
+
+/* Styling for pop-up dialogs */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}
+
+.popup h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.popup input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.popup button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.popup button:hover {
+    background-color: #0056b3;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+    main {
+        padding: 10px;
+    }
+    
+    .post {
+        padding: 10px;
+    }
+    
+    .popup {
+        width: 80%;
+    }
+}

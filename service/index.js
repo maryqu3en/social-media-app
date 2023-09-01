@@ -34,8 +34,8 @@ app.post("/api/add-post", (req, res) => {
     });
   }
 
-  const id = quotes.length + 1;
-  const date = date.now();
+  const id = posts.length + 1;
+  const date = Date.now();
   const newPost = {
     id,
     pic,
@@ -134,7 +134,6 @@ app.post("/api/add-comment/:postId", (req, res) => {
     post: post,
   });
 });
-
 
 //edit comment
 app.put("/api/edit-comment/:postId/:commentId", (req, res) => {
