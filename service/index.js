@@ -24,6 +24,24 @@ app.get("/api/posts", (req, res) => {
   });
 });
 
+//return comments of post
+app.get("/api/post-comments/:id", (req, res) => {
+  const { id } = req.params;
+  const post = posts.find(post => post.id == id);
+
+  if (!post) {
+    return res.status(404).json({
+      message: "Post not found",
+    });
+  }
+
+  const comments = post.comments;
+  return res.status(200).json({
+    comments,
+  });
+});
+
+
 //create new post
 app.post("/api/add-post", (req, res) => {
   const { pic, title, description } = req.body;
