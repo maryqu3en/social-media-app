@@ -120,7 +120,7 @@ app.post("/api/add-comment/:postId", (req, res) => {
   }
 
   const comment = {
-    id: generateUniqueId(), // You can use any method to generate a unique ID
+    id: Math.floor(Math.random() * 1000),
     text: text,
   };
 
