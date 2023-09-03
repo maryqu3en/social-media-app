@@ -17,7 +17,7 @@ app.get("/api", (req, res) => {
   return res.status(200).json({ data: "hello world" });
 });
 
-//return list of posts
+//return array of posts
 app.get("/api/posts", (req, res) => {
   return res.status(200).json({
     posts,
@@ -74,7 +74,6 @@ app.put("/api/edit-post/:id", (req, res) => {
   const { id } = req.params;
   const { pic, title, description } = req.body;
 
-  // Find the post with the given id
   const post = posts.find((post) => post.id === id);
 
   if (!post) {
@@ -87,7 +86,6 @@ app.put("/api/edit-post/:id", (req, res) => {
   post.title = title || post.title;
   post.description = description || post.description;
 
-  // Update the data.json file
   fs.writeFileSync(path.resolve(__dirname, "data.json"), JSON.stringify(posts));
 
   return res.status(200).json({
@@ -100,14 +98,11 @@ app.put("/api/edit-post/:id", (req, res) => {
 app.post("/api/delete-post/:id", (req, res) => {
   const { id } = req.params;
 
-  // Find the index of the post with the given id
   const postIndex = posts.findIndex((post) => post.id == id);
 
   if (postIndex !== -1) {
-    // Remove the post from the array
     posts.splice(postIndex, 1);
 
-    // Update the data.json file
     fs.writeFileSync(
       path.resolve(__dirname, "data.json"),
       JSON.stringify(posts)
@@ -129,7 +124,6 @@ app.post("/api/add-comment/:postId", (req, res) => {
   const { postId } = req.params;
   const { text } = req.body;
 
-  // Find the post with the given postId
   const post = posts.find((post) => post.id == postId);
 
   if (!post) {
@@ -145,7 +139,6 @@ app.post("/api/add-comment/:postId", (req, res) => {
 
   post.comments.push(comment);
 
-  // Update the data.json file
   fs.writeFileSync(path.resolve(__dirname, "data.json"), JSON.stringify(posts));
 
   return res.status(200).json({
@@ -159,7 +152,6 @@ app.put("/api/edit-comment/:postId/:commentId", (req, res) => {
   const { postId, commentId } = req.params;
   const { text } = req.body;
 
-  // Find the post with the given postId
   const post = posts.find((post) => post.id === postId);
 
   if (!post) {
@@ -178,7 +170,6 @@ app.put("/api/edit-comment/:postId/:commentId", (req, res) => {
 
   comment.text = text;
 
-  // Update the data.json file
   fs.writeFileSync(path.resolve(__dirname, "data.json"), JSON.stringify(posts));
 
   return res.status(200).json({
@@ -191,7 +182,6 @@ app.put("/api/edit-comment/:postId/:commentId", (req, res) => {
 app.delete("/api/delete-comment/:postId/:commentId", (req, res) => {
   const { postId, commentId } = req.params;
 
-  // Find the post with the given postId
   const post = posts.find((post) => post.id === postId);
 
   if (!post) {
@@ -201,7 +191,7 @@ app.delete("/api/delete-comment/:postId/:commentId", (req, res) => {
   }
 
   const commentIndex = post.comments.findIndex(
-    (comment) => comment.id === commentId  //eyes on this !!!!!!
+    (comment) => comment.id === commentId  
   );
 
   if (commentIndex === -1) {
@@ -212,7 +202,6 @@ app.delete("/api/delete-comment/:postId/:commentId", (req, res) => {
 
   post.comments.splice(commentIndex, 1);
 
-  // Update the data.json file
   fs.writeFileSync(path.resolve(__dirname, "data.json"), JSON.stringify(posts));
 
   return res.status(200).json({
