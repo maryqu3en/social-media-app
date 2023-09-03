@@ -1,17 +1,20 @@
-/* Reset some default styles */
-body, h1, h2, p {
+@import url('https://fonts.googleapis.com/css2?family=Arbutus&family=Inter:wght@300&family=Karla:wght@200&family=Lato:ital,wght@0,700;1,700;1,900&family=Montserrat:ital,wght@0,400;0,900;1,400;1,600;1,900&display=swap');
+
+* {
     margin: 0;
     padding: 0;
 }
 
-/* Basic styling for the header and navigation */
 header {
-    background-color: #333;
+    font-family: 'Lato', sans-serif;
+    background-color: #FFC7EA;
     color: #fff;
     padding: 10px;
+    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
 }
 
 nav {
+    font-family: 'Lato';
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -24,28 +27,30 @@ h1 {
 }
 
 button {
-    background-color: #007bff;
+    font-family: 'Lato';
+    background-color: #D8B4F8;
     color: #fff;
+    border-radius: 20px;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #FBF0B2;
 }
 
-/* Styling for the main content area */
 main {
-    max-width: 960px;
-    margin: 20px auto;
+    height: 30px;
+    max-width: 800px;
+    margin: 50px auto;
     padding: 20px;
     background-color: #f9f9f9;
-    border-radius: 5px;
+    border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for individual posts */
 .post {
     margin: 20px 0;
     padding: 20px;
@@ -74,13 +79,12 @@ main {
     margin: 10px 0;
 }
 
-/* Styling for comments and buttons within posts */
 .comments-popup {
     display: none;
 }
 
 .comments-popup button {
-    background-color: #007bff;
+    background-color: #D8B4F8;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -88,7 +92,7 @@ main {
 }
 
 .comments-popup button:hover {
-    background-color: #0056b3;
+    background-color: #D8B4F8;
 }
 
 .comment {
@@ -104,7 +108,6 @@ main {
     margin: 0;
 }
 
-/* Styling for pop-up dialogs */
 .popup {
     display: none;
     position: fixed;
@@ -113,12 +116,13 @@ main {
     transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 9999;
 }
 
 .popup h2 {
+    font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial;
     font-size: 18px;
     margin-bottom: 10px;
 }
@@ -128,11 +132,11 @@ main {
     padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ddd;
-    border-radius: 3px;
+    border-radius: 12px;
 }
 
 .popup button {
-    background-color: #007bff;
+    background-color: #D8B4F8;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -141,10 +145,9 @@ main {
 }
 
 .popup button:hover {
-    background-color: #0056b3;
+    background-color: #FBF0B2;
 }
 
-/* Media query for responsiveness */
 @media (max-width: 768px) {
     main {
         padding: 10px;

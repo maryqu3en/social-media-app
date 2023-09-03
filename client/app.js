@@ -1,3 +1,125 @@
+// Define API endpoints
+const API_URL = 'http://localhost:4040/api';
+const POSTS_URL = `${API_URL}/posts`;
+const COMMENTS_URL = `${API_URL}/add-comment`;
+
+const postsContainer = document.querySelector(".posts-container");
+
+// Function to fetch and display posts
+async function fetchPosts() {
+  try {
+    const response = await fetch(POSTS_URL);
+    const data = await response.json();
+
+    if (response.ok) {
+      const posts = data;
+      console.log(posts);
+      posts.forEach((postData) => {
+          const post = document.createElement("div");
+          post.classList.add("post");
+          post.id = postData.id;
+          post.innerHTML = `
+                  <h2>${postData.title}</h2>
+                  <img src="${postData.pic}" alt="Post Image">
+                  <p class="time">${postData.date}</p>
+                  <p>${postData.description}</p>
+                  <button class="edit-post">Edit Post</button>
+                  <button class="delete-post">Delete Post</button>
+                  <button class="load-comments">Load Comments</button>
+                  <div class="comments-popup">
+                      <button class="add-comment">Add Comment</button>
+                      <div class="comments-list"></div>
+                  </div>
+              `;
+          postsContainer.appendChild(post);
+      });
+    } else {
+      // Handle error
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+}
+
+// Function to create a new post
+async function createPost(pic, title, description) {
+  try {
+    const response = await fetch(`${API_URL}/add-post`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ pic, title, description }),
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      // Post created successfully, you can handle the response data here
+      console.log('Post created:', data);
+      // Refresh the posts list
+      fetchPosts();
+    } else {
+      // Handle error
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error('Error creating post:', error);
+  }
+}
+
+// Function to create a new comment for a post
+async function createComment(postId, text) {
+  try {
+    const response = await fetch(`${COMMENTS_URL}/${postId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+      // Comment created successfully, you can handle the response data here
+      console.log('Comment created:', data);
+      // Refresh the comments for the specific post
+      fetchComments(postId);
+    } else {
+      // Handle error
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error('Error creating comment:', error);
+  }
+}
+
+// Function to fetch and display comments for a post
+async function fetchComments(postId) {
+  try {
+    const response = await fetch(`${POSTS_URL}/${postId}/comments`);
+    const data = await response.json();
+
+    if (response.ok) {
+      const comments = data.comments;
+      // Display comments on the frontend (you can implement this part)
+      // Loop through 'comments' and render them on your webpage
+    } else {
+      // Handle error
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+  }
+}
+
+// Example usage:
+fetchPosts(); // Call this function to fetch and display posts
+// createPost('image-url', 'Post Title', 'Post Description'); // Call this function to create a new post
+// createComment(postId, 'Comment Text'); // Call this function to create a new comment for a post
+// fetchComments(postId); // Call this function to fetch and display comments for a post
+
+
 const popup = document.querySelector(".popup");
 const createPostBtn = document.querySelector("#create-post");
 const postPopup = document.querySelector("#create-post-popup");
@@ -6,10 +128,9 @@ const cancelPost = document.querySelector("#cancel-create-post");
 const submitPost = document.querySelector("#submit-create-post");
 const cancelComment = document.querySelector("#cancel-create-post");
 const submitComment = document.querySelector("#submit-create-post");
-const URL = "http://localhost:4040";
+
 let postPopupStatus = false;
 let commentPopupStatus = false;
-let posts = [];
 
 //display create-post popup
 createPostBtn.addEventListener("click", () => {
@@ -27,137 +148,3 @@ cancelPost.addEventListener("click", () => {
   postPopupStatus = !postPopupStatus;
   // commentPopupStatus = !commentPopupStatus;
 });
-
-//create post element
-const createPostDom = (id, title, pic, description) => {
-  const post = document.createElement("div");
-  post.classList.add("post");
-  post.id = id;
-  post.innerHTML = `
-              <h2>${title}</h2>
-              <img src="${pic}" alt="Post Image">
-              <p class="time">${date}</p>
-              <p>${description}</p>
-              <button class="edit-post">Edit Post</button>
-              <button class="delete-post">Delete Post</button>
-              <button class="load-comments">Load Comments</button>
-              <div class="comments-popup">
-                  <button class="add-comment">Add Comment</button>
-                  <div class="comments-list"></div>
-              </div>
-  `;
-  const loadCommentsButton = post.querySelector(".load-comments");
-  const addCommentButton = post.querySelector(".add-comment");
-  const commentsPopup = post.querySelector(".comments-popup");
-  const commentsList = post.querySelector(".comments-list");
-  const deletePostButton = post.querySelector(".delete-post");
-  const editPostButton = post.querySelector(".edit-post");
-
-  // Load comments for the post
-  loadCommentsButton.addEventListener("click", async () => {
-    const postId = post.id;
-    const response = await fetch(`${URL}/api/posts/${postId}/comments`);
-    const commentsData = await response.json();
-    commentsList.innerHTML = ""; // Clear previous comments
-    if (commentsData.comments.length > 0) {
-      commentsData.comments.forEach((comment) => {
-        const commentElement = document.createElement("div");
-        commentElement.classList.add("comment");
-        commentElement.innerHTML = `
-                      <p>${comment.text}</p>
-                      <button class="edit-comment">Edit</button>
-                      <button class="delete-comment">Delete</button>
-                  `;
-
-        const editCommentButton =
-          commentElement.querySelector(".edit-comment");
-        const deleteCommentButton =
-          commentElement.querySelector(".delete-comment");
-
-        // Add functionality to edit comment
-        editCommentButton.addEventListener("click", () => {
-          // Implement edit comment logic here
-          // You can use a similar popup approach as for creating a post
-        });
-
-        // Add functionality to delete comment
-        deleteCommentButton.addEventListener("click", async () => {
-          // Implement delete comment logic here
-          const commentId = comment.id;
-          const deleteCommentResponse = await fetch(
-            `/api/posts/${postId}/comments/${commentId}`,
-            {
-              method: "DELETE",
-            }
-          );
-          if (deleteCommentResponse.status === 200) {
-            commentElement.remove();
-          }
-        });
-
-        commentsList.appendChild(commentElement);
-      });
-    } else {
-      commentsList.innerHTML = "<p>No comments yet</p>";
-    }
-    commentsPopup.style.display = "block";
-  });
-
-  // Add functionality to add comment
-  addCommentButton.addEventListener("click", () => {
-    createCommentPopup.style.display = "block";
-    const submitCommentButton = createCommentPopup.querySelector(
-      "#submit-create-comment"
-    );
-    submitCommentButton.addEventListener("click", async () => {
-      const commentText = createCommentPopup.querySelector("input").value;
-      if (commentText) {
-        const addCommentResponse = await fetch(
-          `/api/posts/${postId}/comments`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ text: commentText }),
-          }
-        );
-        if (addCommentResponse.status === 200) {
-          createCommentPopup.style.display = "none";
-          loadCommentsButton.click(); // Reload comments
-        }
-      }
-    });
-  });
-
-  // Add functionality to delete post
-  deletePostButton.addEventListener("click", async () => {
-    const postId = post.dataset.id;
-    const deletePostResponse = await fetch(`/api/posts/${postId}`, {
-      method: "DELETE",
-    });
-    if (deletePostResponse.status === 200) {
-      post.remove();
-    }
-  });
-
-  // Add functionality to edit post
-  editPostButton.addEventListener("click", () => {
-    // Implement edit post logic here
-    // You can use a similar popup approach as for creating a post
-  });
-
-  return post;
-};
-
-// const createComment = document.querySelector('');
-// const deletePost = document.querySelector('');
-// const deleteComment = document.querySelector('');
-// createComment.addEventListener('click', () => {
-//     if (commentPopupStatus) {
-//         commentPopup.style.display = 'none';
-//     } else {
-//         commentPopup.style.display = 'block';
-//     }
-//     commentPopupStatus = !commentPopupStatus;
-// });

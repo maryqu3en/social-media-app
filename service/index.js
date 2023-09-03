@@ -201,7 +201,7 @@ app.delete("/api/delete-comment/:postId/:commentId", (req, res) => {
   }
 
   const commentIndex = post.comments.findIndex(
-    (comment) => comment.id === commentId
+    (comment) => comment.id === commentId  //eyes on this !!!!!!
   );
 
   if (commentIndex === -1) {
