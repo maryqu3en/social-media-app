@@ -50,9 +50,11 @@ async function fetchPosts() {
                   <img src="${postData.pic}" alt="Post Image">
                   <p class="time">${postData.date}</p>
                   <p>${postData.description}</p>
-                  <button class="edit-post">Edit Post</button>
-                  <button class="delete-post">Delete Post</button>
-                  <button class="load-comments">Load Comments</button>
+                  <div>
+                    <button class="edit-post">Edit Post</button>
+                    <button class="delete-post">Delete Post</button>
+                    <button class="load-comments">Load Comments</button>
+                  </div>
                   <div class="comments-popup">
                       <button class="add-comment">Add Comment</button>
                       <div class="comments-list"></div>
@@ -85,6 +87,7 @@ async function createPost(pic, title, description) {
     if (response.ok) {
       console.log('Post created:', data);
       fetchPosts();
+      location.reload();
     } else {
       console.error(data.message);
     }
@@ -94,10 +97,13 @@ async function createPost(pic, title, description) {
 }
 
 submitPost.addEventListener('click', async () => {
-  const newPostTitle = postPopup.querySelector('input[placeholder="title"]').value;
-  const newPostDescription=  postPopup.querySelector('input[placeholder="description"]').value;
-  const newPostPicture = postPopup.querySelector('input[placeholder="image URL"]').value;
-  createPost(newPostPicture, newPostTitle, newPostDescription);
+  if(postPopup) {
+    const newPostTitle = postPopup.querySelector('input[placeholder="title"]').value;
+    const newPostDescription=  postPopup.querySelector('input[placeholder="description"]').value;
+    const newPostPicture = postPopup.querySelector('input[placeholder="image URL"]').value;
+    createPost(newPostPicture, newPostTitle, newPostDescription);
+  }
+  location.reload();
 });
 
 // Function to create a new comment for a post
