@@ -4,8 +4,35 @@ const POSTS_URL = `${API_URL}/posts`;
 const COMMENTS_URL = `${API_URL}/add-comment`;
 
 const postsContainer = document.querySelector(".posts-container");
+const popup = document.querySelector(".popup");
+const createPostBtn = document.querySelector("#create-post");
+const postPopup = document.querySelector("#create-post-popup");
+const commentPopup = document.querySelector("#create-comment-popup");
+const cancelPost = document.querySelector("#cancel-create-post");
+const submitPost = document.querySelector("#submit-create-post");
+const cancelComment = document.querySelector("#cancel-create-post");
+const submitComment = document.querySelector("#submit-create-post");
 
-// Function to fetch and display posts
+let postPopupStatus = false;
+let commentPopupStatus = false;
+
+//display create-post popup
+createPostBtn.addEventListener("click", () => {
+  if (postPopupStatus) {
+    postPopup.style.display = "none";
+  } else {
+    postPopup.style.display = "block";
+  }
+  postPopupStatus = !postPopupStatus;
+});
+
+//hide popup after clicking cancel
+cancelPost.addEventListener("click", () => {
+  postPopup.style.display = "none";
+  postPopupStatus = !postPopupStatus;
+});
+
+//fetch and display posts
 async function fetchPosts() {
   try {
     const response = await fetch(POSTS_URL);
@@ -14,7 +41,7 @@ async function fetchPosts() {
     if (response.ok) {
       const posts = data;
       console.log(posts);
-      posts.forEach((postData) => {
+      posts.posts.forEach((postData) => {
           const post = document.createElement("div");
           post.classList.add("post");
           post.id = postData.id;
@@ -34,7 +61,6 @@ async function fetchPosts() {
           postsContainer.appendChild(post);
       });
     } else {
-      // Handle error
       console.error(data.message);
     }
   } catch (error) {
@@ -42,7 +68,9 @@ async function fetchPosts() {
   }
 }
 
-// Function to create a new post
+fetchPosts();
+
+//create a new post
 async function createPost(pic, title, description) {
   try {
     const response = await fetch(`${API_URL}/add-post`, {
@@ -55,18 +83,22 @@ async function createPost(pic, title, description) {
     const data = await response.json();
 
     if (response.ok) {
-      // Post created successfully, you can handle the response data here
       console.log('Post created:', data);
-      // Refresh the posts list
       fetchPosts();
     } else {
-      // Handle error
       console.error(data.message);
     }
   } catch (error) {
     console.error('Error creating post:', error);
   }
 }
+
+submitPost.addEventListener('click', async () => {
+  const newPostTitle = postPopup.querySelector('input[placeholder="title"]').value;
+  const newPostDescription=  postPopup.querySelector('input[placeholder="description"]').value;
+  const newPostPicture = postPopup.querySelector('input[placeholder="image URL"]').value;
+  createPost(newPostPicture, newPostTitle, newPostDescription);
+});
 
 // Function to create a new comment for a post
 async function createComment(postId, text) {
@@ -113,38 +145,7 @@ async function fetchComments(postId) {
   }
 }
 
-// Example usage:
-fetchPosts(); // Call this function to fetch and display posts
 // createPost('image-url', 'Post Title', 'Post Description'); // Call this function to create a new post
 // createComment(postId, 'Comment Text'); // Call this function to create a new comment for a post
 // fetchComments(postId); // Call this function to fetch and display comments for a post
 
-
-const popup = document.querySelector(".popup");
-const createPostBtn = document.querySelector("#create-post");
-const postPopup = document.querySelector("#create-post-popup");
-const commentPopup = document.querySelector("#create-comment-popup");
-const cancelPost = document.querySelector("#cancel-create-post");
-const submitPost = document.querySelector("#submit-create-post");
-const cancelComment = document.querySelector("#cancel-create-post");
-const submitComment = document.querySelector("#submit-create-post");
-
-let postPopupStatus = false;
-let commentPopupStatus = false;
-
-//display create-post popup
-createPostBtn.addEventListener("click", () => {
-  if (postPopupStatus) {
-    postPopup.style.display = "none";
-  } else {
-    postPopup.style.display = "block";
-  }
-  postPopupStatus = !postPopupStatus;
-});
-
-//hide popup after clicking cancel
-cancelPost.addEventListener("click", () => {
-  postPopup.style.display = "none";
-  postPopupStatus = !postPopupStatus;
-  // commentPopupStatus = !commentPopupStatus;
-});

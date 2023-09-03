@@ -1,14 +1,20 @@
 [
     {
         "id" : "1",
-        "img" : "imageURL",
-        "description" : "just a test",
-        "title" : "test",
+        "pic" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbu13Lctc9kX6TJ9m_6e2S2u2aPzDxQMXDZhcvUERtsIBOBtzRk8SL6dBa1sZBu4fGX9I&usqp=CAU",
+        "description" : "bro was made fun of by a highschooler",
+        "title" : "Michael Kaiser the clown",
         "comments" : [
             {
                 "id" : "11",
                 "text" : "hi"
             }
         ]
+    },
+    {
+        "id" : "2",
+        "pic" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbu13Lctc9kX6TJ9m_6e2S2u2aPzDxQMXDZhcvUERtsIBOBtzRk8SL6dBa1sZBu4fGX9I&usqp=CAU",
+        "description" :"bro was made fun of by a highschooler lol second time",
+        "title": "Kaiser the clown 2nd title"
     }
 ]

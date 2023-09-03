@@ -42,8 +42,8 @@ button:hover {
 }
 
 main {
-    height: 30px;
-    max-width: 800px;
+    min-height: 30px;
+    max-width: 600px;
     margin: 50px auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -58,6 +58,8 @@ main {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 .post h2 {
