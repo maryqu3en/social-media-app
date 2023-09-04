@@ -1,5 +1,5 @@
 // Define API endpoints
-const API_URL = 'http://localhost:4040/api';
+const API_URL = "http://localhost:4040/api";
 const POSTS_URL = `${API_URL}/posts`;
 const COMMENTS_URL = `${API_URL}/add-comment`;
 
@@ -42,10 +42,10 @@ async function fetchPosts() {
       const posts = data;
       console.log(posts);
       posts.posts.forEach((postData) => {
-          const post = document.createElement("div");
-          post.classList.add("post");
-          post.id = postData.id;
-          post.innerHTML = `
+        const post = document.createElement("div");
+        post.classList.add("post");
+        post.id = postData.id;
+        post.innerHTML = `
                   <h2>${postData.title}</h2>
                   <img src="${postData.pic}" alt="Post Image">
                   <p class="time">${postData.date}</p>
@@ -60,13 +60,20 @@ async function fetchPosts() {
                       <div class="comments-list"></div>
                   </div>
               `;
-          postsContainer.appendChild(post);
+              
+        postsContainer.appendChild(post);
+        const deleteButton = post.querySelector(".delete-post");
+        deleteButton.addEventListener("click", () => {
+          const postId = post.id;
+          deletePost(postId);
+          location.reload();
+        });
       });
     } else {
       console.error(data.message);
     }
   } catch (error) {
-    console.error('Error fetching posts:', error);
+    console.error("Error fetching posts:", error);
   }
 }
 
@@ -76,31 +83,37 @@ fetchPosts();
 async function createPost(pic, title, description) {
   try {
     const response = await fetch(`${API_URL}/add-post`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ pic, title, description }),
     });
     const data = await response.json();
 
     if (response.ok) {
-      console.log('Post created:', data);
+      console.log("Post created:", data);
       fetchPosts();
       location.reload();
     } else {
       console.error(data.message);
     }
   } catch (error) {
-    console.error('Error creating post:', error);
+    console.error("Error creating post:", error);
   }
 }
 
-submitPost.addEventListener('click', async () => {
-  if(postPopup) {
-    const newPostTitle = postPopup.querySelector('input[placeholder="title"]').value;
-    const newPostDescription=  postPopup.querySelector('input[placeholder="description"]').value;
-    const newPostPicture = postPopup.querySelector('input[placeholder="image URL"]').value;
+submitPost.addEventListener("click", async () => {
+  if (postPopup) {
+    const newPostTitle = postPopup.querySelector(
+      'input[placeholder="title"]'
+    ).value;
+    const newPostDescription = postPopup.querySelector(
+      'input[placeholder="description"]'
+    ).value;
+    const newPostPicture = postPopup.querySelector(
+      'input[placeholder="image URL"]'
+    ).value;
     createPost(newPostPicture, newPostTitle, newPostDescription);
   }
   location.reload();
@@ -110,9 +123,9 @@ submitPost.addEventListener('click', async () => {
 async function createComment(postId, text) {
   try {
     const response = await fetch(`${COMMENTS_URL}/${postId}`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ text }),
     });
@@ -120,15 +133,14 @@ async function createComment(postId, text) {
 
     if (response.ok) {
       // Comment created successfully, you can handle the response data here
-      console.log('Comment created:', data);
+      console.log("Comment created:", data);
       // Refresh the comments for the specific post
       fetchComments(postId);
     } else {
-      // Handle error
       console.error(data.message);
     }
   } catch (error) {
-    console.error('Error creating comment:', error);
+    console.error("Error creating comment:", error);
   }
 }
 
@@ -147,11 +159,26 @@ async function fetchComments(postId) {
       console.error(data.message);
     }
   } catch (error) {
-    console.error('Error fetching comments:', error);
+    console.error("Error fetching comments:", error);
   }
 }
 
-// createPost('image-url', 'Post Title', 'Post Description'); // Call this function to create a new post
-// createComment(postId, 'Comment Text'); // Call this function to create a new comment for a post
-// fetchComments(postId); // Call this function to fetch and display comments for a post
+//delete a post
+async function deletePost(postId) {
+  try {
+    const response = await fetch(`${API_URL}/delete-post/${postId}`, {
+      method: "POST",
+    });
 
+    if (response.ok) {
+      console.log("Post deleted successfully");
+      fetchPosts();
+      location.reload();
+    } else {
+      const data = await response.json();
+      console.error(data.message);
+    }
+  } catch (error) {
+    console.error("Error deleting post:", error);
+  }
+}
