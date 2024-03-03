@@ -1,4 +1,4 @@
-// Define API endpoints
+//API endpoints
 const API_URL = "http://localhost:4040/api";
 const POSTS_URL = `${API_URL}/posts`;
 const COMMENTS_URL = `${API_URL}/add-comment`;
@@ -40,6 +40,8 @@ async function fetchPosts() {
 
     if (response.ok) {
       const posts = data;
+      //display on console the type pf posts
+      console.log('type of posts', typeof posts, 'length:', posts?.length );
       console.log(posts);
       posts.posts.forEach((postData) => {
         const post = document.createElement("div");

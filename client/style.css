@@ -13,10 +13,10 @@ body {
 
 header {
     font-family: 'Lato', sans-serif;
-    background-color: #FFC7EA;
+    background-color: #726a95; 
     color: #fff;
     padding: 10px;
-    box-shadow: rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+    box-shadow: 0px 8px 15px rgba(114, 106, 149, 0.6);
 }
 
 nav {
@@ -34,17 +34,17 @@ h1 {
 
 button {
     font-family: 'Lato';
-    background-color: #D8B4F8;
+    background-color: #726a95;
     color: #fff;
     border-radius: 20px;
     border: none;
     padding: 10px 20px;
     cursor: pointer;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 button:hover {
-    background-color: #FBF0B2;
+    background-color: #9a8faa;
 }
 
 main {
@@ -52,25 +52,25 @@ main {
     max-width: 600px;
     max-height: 600px;
     overflow-y: scroll;
-    margin: 50px auto;
+    margin: 40px auto;
     padding: 20px;
-    background-color: #f9f9f9;
+    background-color: #f2f0f5;
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 ::-webkit-scrollbar {
     width: 10px;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background-color: #D8B4F8;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #726a95;
     border-radius: 5px;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background-color: #ede9f0;
-  }
+}
+
+::-webkit-scrollbar-track {
+    background-color: #f2f0f5;
+}
 
 .post {
     margin: 20px 0;
@@ -107,7 +107,7 @@ main {
 }
 
 .comments-popup button {
-    background-color: #D8B4F8;
+    background-color: #726a95;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -115,13 +115,13 @@ main {
 }
 
 .comments-popup button:hover {
-    background-color: #D8B4F8;
+    background-color: #9a8faa;
 }
 
 .comment {
     margin: 10px 0;
     padding: 10px;
-    background-color: #f0f0f0;
+    background-color: #f2f0f5;
     border: 1px solid #ddd;
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -159,7 +159,7 @@ main {
 }
 
 .popup button {
-    background-color: #D8B4F8;
+    background-color: #726a95;
     color: #fff;
     border: none;
     padding: 5px 10px;
@@ -168,7 +168,7 @@ main {
 }
 
 .popup button:hover {
-    background-color: #FBF0B2;
+    background-color: #9a8faa;
 }
 
 @media (max-width: 768px) {
