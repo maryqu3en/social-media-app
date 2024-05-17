@@ -1,50 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Social Media App</title>
 </head>
-<body>
-    <header>
-        <nav>
-            <h1>Social Media App</h1>
-            <button id="create-post">Create Post</button>
-        </nav>
-    </header>
-    <main>
-        <div class="posts-container">
 
-        </div>
+<body>
+    <nav>
+        <h1>Social Media App</h1>
+        <button id="create-post">Create Post</button>
+    </nav>
+    <main>
+        <div class="hidden-bg"></div>
+        <div class="posts-container"></div>
     </main>
     <div class="popup" id="create-post-popup">
         <h2>Create new post</h2>
-        <input type="text" placeholder="title">
-        <input type="text" placeholder="image URL">
-        <input type="text" placeholder="description">
+        <input type="text" placeholder="title" />
+        <input type="text" placeholder="image URL" />
+        <input type="text" placeholder="description" />
         <div>
-            <button id="cancel-create-post">
-                Cancel
-            </button>
-            <button id="submit-create-post">
-                Submit
-            </button>
+            <button id="cancel-create-post">Cancel</button>
+            <button id="submit-create-post">Submit</button>
         </div>
     </div>
 
     <div class="popup" id="create-comment-popup">
         <h2>Create comment</h2>
-        <input type="text" placeholder="Comment">
+        <input type="text" placeholder="Comment" />
         <div>
-            <button id="cancel-create-comment">
-                Cancel
-            </button>
-            <button id="submit-create-comment">
-                Submit
-            </button>
+            <button id="cancel-create-comment">Cancel</button>
+            <button id="submit-create-comment">Submit</button>
         </div>
     </div>
     <script src="./app.js"></script>
 </body>
+
 </html>
